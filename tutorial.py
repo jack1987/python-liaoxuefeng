@@ -25,3 +25,13 @@ def safe_base64_decode(s):
     else:
         s = s + len(s) % 4 * b'='
         return base64.b64decode(s)
+
+def bmp_info(data):
+    # big endian for OS
+    # little endian for network protocol
+    t = struct.unpack('<ccIIIIIIHH', data[:30])
+    return {
+        'width': t[6],
+        'height':t[7],
+        'color': t[9]
+    }
