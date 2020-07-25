@@ -1,7 +1,7 @@
 import re
 from datetime import datetime, timezone, timedelta
 import base64
-
+import hashlib
 def to_timestamp(dt_str, tz_str):
     dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
     m = re.match(r'^UTC(\+|-)(\d+):(\d+)$', tz_str)
@@ -35,3 +35,12 @@ def bmp_info(data):
         'height':t[7],
         'color': t[9]
     }
+
+def login(user, password):
+    md5 = hashlib.md5()
+    md5.update(password.encode('utf-8'))
+    if db[user] == md5.hexdigest():
+      return True
+    return False
+    # 简洁写法
+    # return hashlib.md5(password.encode('utf-8')).hexdigest()==db[user]
