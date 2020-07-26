@@ -2,6 +2,9 @@ import re
 from datetime import datetime, timezone, timedelta
 import base64
 import hashlib
+import random
+import hmac
+
 def to_timestamp(dt_str, tz_str):
     dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
     m = re.match(r'^UTC(\+|-)(\d+):(\d+)$', tz_str)
@@ -44,3 +47,8 @@ def login(user, password):
     return False
     # 简洁写法
     # return hashlib.md5(password.encode('utf-8')).hexdigest()==db[user]
+
+def login_hmac(username, password):
+    #比如500w条数据的彩虹表，用户有40w，在拿到数据库的情况下（也意味着拿到所有的盐），则攻击者需要增加40w*500w的数据,如果只生成一个global的salt，黑客拿到就只用生成500w
+    user = db[username]
+    return user.password == hmac_md5(user.key, password)
