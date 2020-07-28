@@ -4,6 +4,7 @@ import base64
 import hashlib
 import random
 import hmac
+import itertools
 
 def to_timestamp(dt_str, tz_str):
     dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
@@ -52,3 +53,17 @@ def login_hmac(username, password):
     #比如500w条数据的彩虹表，用户有40w，在拿到数据库的情况下（也意味着拿到所有的盐），则攻击者需要增加40w*500w的数据,如果只生成一个global的salt，黑客拿到就只用生成500w
     user = db[username]
     return user.password == hmac_md5(user.key, password)
+
+def pi(N):
+    ' 计算pi的值 '
+    # step 1: 创建一个奇数序列: 1, 3, 5, 7, 9, ...
+
+    # step 2: 取该序列的前N项: 1, 3, 5, 7, 9, ..., 2*N-1.
+
+    # step 3: 添加正负符号并用4除: 4/1, -4/3, 4/5, -4/7, 4/9, ...
+
+    # step 4: 求和:
+    return sum([(2 - i % 4)/i * 4 for i in itertools.takewhile(lambda x : x<=2*N-1, itertools.count(1,2))])
+
+if __name__ == '__main__':
+    print(pi(100))
