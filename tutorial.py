@@ -5,6 +5,7 @@ import hashlib
 import random
 import hmac
 import itertools
+from urllib import request
 
 def to_timestamp(dt_str, tz_str):
     dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
@@ -64,6 +65,11 @@ def pi(N):
 
     # step 4: 求和:
     return sum([(2 - i % 4)/i * 4 for i in itertools.takewhile(lambda x : x<=2*N-1, itertools.count(1,2))])
+
+def fetch_data(url):
+    with request.urlopen(url) as f:
+        return json.loads(f.read().decode('utf-8'))
+
 
 if __name__ == '__main__':
     print(pi(100))
