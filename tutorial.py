@@ -5,6 +5,7 @@ import hashlib
 import random
 import hmac
 import itertools
+import chardet
 from urllib import request
 
 def to_timestamp(dt_str, tz_str):
@@ -70,6 +71,9 @@ def fetch_data(url):
     with request.urlopen(url) as f:
         return json.loads(f.read().decode('utf-8'))
 
+def detect_encoding():
+    data = '真実はいつもひとつ'.encode('euc-jp')
+    print(chardet.detect(data))
 
 if __name__ == '__main__':
     print(pi(100))
