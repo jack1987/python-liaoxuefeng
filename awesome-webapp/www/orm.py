@@ -132,7 +132,7 @@ class ModelMetaclass(type):
         print(attrs['__select__'])
         attrs['__insert__'] = 'insert into `%s` (%s, `%s`) values (%s)' % (tableName, ', '.join(escaped_fields), primaryKey, create_args_string(len(escaped_fields) + 1))
         print(attrs['__insert__'])
-        attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName, ', '.join(map(lambda f: '`%s`=?' % (f), escaped_fields)), primaryKey)
+        attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName, ', '.join(map(lambda f: '%s=?' % (f), escaped_fields)), primaryKey)
         print(attrs['__update__'])
         attrs['__delete__'] = 'delete from `%s` where `%s`=?' % (tableName, primaryKey)
         print(attrs['__delete__'])
@@ -215,9 +215,12 @@ class Model(dict, metaclass=ModelMetaclass):
     async def save(self):
         args = list(map(self.getValueOrDefault, self.__fields__))
         args.append(self.getValueOrDefault(self.__primary_key__))
-        rows = await execute(self.__insert__, args)
-        if rows != 1:
-            logging.warn('failed to insert record: affected rows: %s' % rows)
+        rows = -1
+        try:
+            rows = await execute(self.__insert__, args)
+        finally:
+            if rows != 1:
+                logging.warn('failed to insert record: affected rows: %s' % rows)
 
     async def update(self):
         args = list(map(self.getValue, self.__fields__))
