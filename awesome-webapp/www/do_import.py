@@ -7,6 +7,7 @@ def add_routes(module_name):
         name = module_name[n+1:]
         mod = getattr(__import__(module_name[:n], globals(), locals(), [name]), name)
     print(mod)
+    print(mod.__dict__)
 
 add_routes('test')
 add_routes('app.handle')
