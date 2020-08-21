@@ -34,13 +34,15 @@
     {% block beforehead %}<!-- before head  -->{% endblock %}
 </head>
 <body>
-    <nav class="uk-navbar uk-navbar-attached uk-margin-bottom">
-        <div class="uk-container uk-container-center">
+    <nav class="uk-navbar" uk-navbar>
+        <div class="uk-container-left">
             <a href="/" class="uk-navbar-brand">Awesome</a>
+        </div>
+        <div class="uk-container-center">
             <ul class="uk-navbar-nav">
-                <li data-url="blogs"><a href="/"><span uk-icon="bookmark"></span> 日志</a></li>
-                <li><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000"><span uk-icon="file-text"></span> 教程</a></li>
-                <li><a target="_blank" href="https://github.com/michaelliao/awesome-python3-webapp"><span uk-icon="code"></span> 源码</a></li>
+                <li data-url="blogs"><a href="/"><span uk-icon="heart"></span> 日志</a></li>
+                <li><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000"><span uk-icon="heart"></span> 教程</a></li>
+                <li><a target="_blank" href="https://github.com/michaelliao/awesome-python3-webapp"><span uk-icon="heart"></span> 源码</a></li>
             </ul>
             <div class="uk-navbar-flip">
                 <ul class="uk-navbar-nav">
