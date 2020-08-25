@@ -19,6 +19,12 @@ def get_page_index(page_str):
         p = 1
     return p
 
+@get('/register')
+def register():
+    return {
+        '__template__': 'register.html'
+    }
+
 @get('/')
 async def index(request):
     summary = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
